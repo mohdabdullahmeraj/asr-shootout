@@ -28,6 +28,7 @@ requests>=2.31.0             # REST API calls to Sarvam
 # --- Metrics ---
 jiwer>=3.0.3                 # WER + CER computation
 rapidfuzz>=3.5.0             # Fuzzy matching + Jaro-Winkler + Levenshtein
+indic-transliteration>=2.3.0
 jellyfish>=1.0.0             # Phonetic algorithms (Soundex, Metaphone)
 
 # --- Data Handling ---

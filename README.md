@@ -33,7 +33,7 @@ python src/run_pipeline.py
 
 ```
 asr-shootout/
-├── recordings/                    # Your audio files (not in git — too large)
+├── recordings/                    # 26 audio samples (self-recorded + cross-accent)
 ├── data/
 │   ├── ground_truth.json          # Reference transcripts for all 26 samples
 │   └── metadata.csv               # Audio file metadata and conditions
@@ -47,7 +47,7 @@ asr-shootout/
 │   └── special_tests.py           # Hallucination test + chunk latency curve
 ├── notebooks/
 │   └── asr_benchmark.ipynb        # Full Colab-ready notebook (recommended entry point)
-├── results/                       # Generated after running (not in git)
+├── results/                       # Benchmark outputs — CSVs, charts, latency curves
 │   ├── raw_transcriptions.csv
 │   ├── metrics_summary.csv
 │   ├── condition_breakdown.csv
@@ -69,7 +69,7 @@ asr-shootout/
 
 **Cross-accent (6 clips):** Same 3 localities recorded by 2 friends with different accents — tests speaker generalization.
 
-**Open-source:** FLEURS-Hi (30 clips) as sanity-check baseline.
+**Open-source:** FLEURS-Hi (20 clips) as sanity-check baseline.
 
 ---
 
@@ -136,18 +136,17 @@ python src/run_pipeline.py --models deepgram sarvam
 
 ## Reproducing Results on Colab
 
-1. Push this repo to GitHub
+1. Clone this repo to GitHub
 2. Open `notebooks/asr_benchmark.ipynb` in Colab
 3. Set runtime to T4 GPU
 4. Update `REPO_URL` in the first cell
 5. Paste API keys in the config cell
-6. Upload recordings to `My Drive/asr-shootout/recordings/`
-7. Run All
+6. Run All — recordings are included in the repo
 
 ---
 
 ## Report
 
-See `report/report_template.md` — fill in the `XX` values with your actual numbers after running the notebook.
+See `report/report.md`
 
 Key finding preview: **Entity Accuracy > WER** for this use case. A model can score 85% WER but still fail to capture the locality name — which is the only thing that matters for candidate routing.

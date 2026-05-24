@@ -19,6 +19,18 @@ import statistics
 from rapidfuzz import fuzz
 from rapidfuzz.distance import Levenshtein, JaroWinkler
 
+def _to_roman(text: str) -> str:
+    """Transliterate Devanagari to Roman for fair metric comparison."""
+    if not text:
+        return ""
+    try:
+        from indic_transliteration import sanscript
+        from indic_transliteration.sanscript import transliterate
+        if any('\u0900' <= c <= '\u097F' for c in text):
+            text = transliterate(text, sanscript.DEVANAGARI, sanscript.ITRANS)
+    except ImportError:
+        pass
+    return text
 
 # ---------------------------------------------------------------------------
 # Text normalization
@@ -204,6 +216,8 @@ def compute_all_metrics(
     Compute all metrics for a single sample.
     Returns a flat dict suitable for appending to a pandas DataFrame.
     """
+    hypothesis = _to_roman(hypothesis)
+    
     return {
         "locality": locality,
         "reference": reference,
