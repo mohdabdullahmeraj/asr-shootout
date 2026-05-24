@@ -18,8 +18,8 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and add your Deepgram + Sarvam API keys
 
-# 4. Add your recordings to recordings/
-# See RECORDING_GUIDE.md for instructions
+# 4. Recordings are included in the repo (recordings/ folder)
+#    26 samples: 20 self-recorded + 6 cross-accent
 
 # 5. Run the pipeline
 python src/run_pipeline.py
@@ -136,7 +136,7 @@ python src/run_pipeline.py --models deepgram sarvam
 
 ## Reproducing Results on Colab
 
-1. Clone this repo to GitHub
+1. Clone this repo: git clone https://github.com/mohdabdullahmeraj/asr-shootout.git
 2. Open `notebooks/asr_benchmark.ipynb` in Colab
 3. Set runtime to T4 GPU
 4. Update `REPO_URL` in the first cell
@@ -147,6 +147,6 @@ python src/run_pipeline.py --models deepgram sarvam
 
 ## Report
 
-See `report/report.md`
+See `report/report.md` for the complete benchmark findings, failure analysis, and production recommendations.
 
 Key finding preview: **Entity Accuracy > WER** for this use case. A model can score 85% WER but still fail to capture the locality name — which is the only thing that matters for candidate routing.
