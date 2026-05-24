@@ -1,0 +1,105 @@
+locality,reference,hypothesis,wer,cer,entity_accuracy,jaro_winkler_similarity,levenshtein_on_entity,recoverability,latency_ms,confidence,model,filename,condition,speaker,is_hallucination,backend
+Koramangala,Haan main Koramangala mein rehta hoon,"ha.n, maim kora mamgala mem rahata hum.",1.1667,0.2973,1,0.9485,2,correct,1901.59,0.8896,deepgram,01_koramangala_quiet.wav,quiet,self,,
+Indiranagar,Mera ghar Indiranagar ke paas hai,mera ghara imdra nagara ke pasa hai.,0.6667,0.2121,1,0.8038,4,correct,2328.03,0.9971,deepgram,02_indiranagar_quiet.wav,quiet,self,,
+Whitefield,Office Whitefield mein hai yaar,office right feel hai yara.,0.6,0.4516,0,0.6192,10,degraded,2035.26,0.4775,deepgram,03_whitefield_traffic.wav,traffic,self,,
+Electronic City,Main Electronic City se aa raha hoon,maim electronic city se a raha hum.,0.4286,0.1389,1,1.0,0,correct,2112.32,0.9194,deepgram,04_electronic_city_traffic.wav,traffic,self,,
+Marathahalli,Bhai Marathahalli bridge ke paas milte hain,bhai marathom ji phira usake pasa milate haim.,1.0,0.3953,0,0.8439,5,recoverable,2208.04,0.9561,deepgram,05_marathahalli_street.wav,street,self,,
+Jayanagar,Jayanagar fourth block mein rehta hoon main,jaina nagara fourth block mem rahata hu.n maim.,0.8571,0.2558,0,0.8481,4,recoverable,1504.98,0.9961,deepgram,06_jayanagar_quiet.wav,quiet,self,,
+Rajajinagar,Rajajinagar se auto lena padega,rajaji nagara se auto dena pa.dega.,0.6,0.0968,1,0.9692,2,correct,1677.18,0.9028,deepgram,07_rajajinagar_rushed.wav,rushed,self,,
+Hebbal,Hebbal flyover ke paas hoon abhi,cable flyover ke pasa mem hui.,0.6667,0.4375,0,0.5182,6,degraded,1490.24,0.4634,deepgram,08_hebbal_traffic.wav,traffic,self,,
+Yelahanka,Main Yelahanka New Town mein rehta hoon,maim yelahamka new town mem rahata hum.,0.7143,0.2308,1,0.9556,1,correct,1697.78,0.9883,deepgram,09_yelahanka_quiet.wav,quiet,self,,
+Banashankari,Banashankari bus stop ke paas hun,anashamkari bus stop ke pasa ho.,0.5,0.1818,1,0.9141,2,correct,1534.95,0.9741,deepgram,10_banashankari_whisper.wav,whisper,self,,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flagship hai.,0.5714,0.359,1,1.0,0,correct,1602.81,0.9761,deepgram,11_hsr_layout_rushed.wav,rushed,self,,
+BTM Layout,BTM Layout mein room milega kya,medium layout mem room milega kya?,0.3333,0.2258,1,0.7,4,correct,2073.99,0.9854,deepgram,12_btm_layout_phone.wav,phone,self,,
+Majestic,Majestic se bus pakadni hai abhi,logistic se bus ko kanya di.,0.6667,0.4688,0,0.5367,8,degraded,2106.39,0.8271,deepgram,13_majestic_street.wav,street,self,,
+Silk Board,Silk Board junction pe jam hai bhai,silago jamkshana para jana bhai.,0.8571,0.5714,0,0.6027,10,degraded,1903.9,0.8687,deepgram,14_silk_board_traffic.wav,traffic,self,,
+Bellandur,Bellandur ke paas kaam dhundh raha hoon,belana dura ke pasa kama dhumdha raha hum.,0.8571,0.3333,0,0.9104,4,recoverable,2180.76,0.9727,deepgram,15_bellandur_quiet.wav,quiet,self,,
+Sarjapur,Sarjapur road pe flat lena hai,search apako road para flat lena hai.,0.5,0.3333,0,0.6389,8,degraded,2495.84,0.856,deepgram,16_sarjapur_whisper.wav,whisper,self,,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,beatara hariyana pura mem rahata hum maim.,1.4,0.4167,0,0.6786,6,degraded,1517.51,0.7671,deepgram,17_byatarayanapura_quiet.wav,quiet,self,,
+KR Puram,KR Puram station ke paas milte hain,kya harapurama station ke pasa milate haim?,0.7143,0.3143,0,0.6722,4,degraded,1493.75,0.9961,deepgram,18_kr_puram_street.wav,street,self,,
+Peenya,Peenya industrial area mein job hai,bina industrial area mem job hai.,0.3333,0.1714,0,0.4653,6,catastrophic,1331.71,0.9863,deepgram,19_peenya_rushed.wav,rushed,self,,
+Thanisandra,Thanisandra main road pe rehta hoon,thani semdara mem road pe rahata hum.,0.8333,0.3429,0,0.9157,4,recoverable,1510.65,0.8462,deepgram,20_thanisandra_quiet.wav,quiet,self,,
+Byatarayanapura,Byatarayanapura mein rehti hoon main,j~nata rayana pura mem rahati hum maim.,1.4,0.3333,1,0.7253,6,correct,1344.13,0.6918,deepgram,F1_byatarayanapura.wav,quiet,friend_1,,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahie.,0.4286,0.1538,1,1.0,0,correct,1514.46,0.9932,deepgram,F1_hsr_layout.wav,quiet,friend_1,,
+Koramangala,Haan main Koramangala mein rehti hoon,"ham, maim koramamgala mem rahati hu.n.",1.0,0.2703,1,0.9636,1,correct,1328.67,0.9941,deepgram,F1_koramangala.wav,quiet,friend_1,,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,"byaja, hariyana pura mem rahata hum maim.",1.4,0.3889,0,0.6786,6,degraded,1949.82,0.8042,deepgram,F2_byatarayanapura.wav,quiet,friend_2,,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahie.,0.4286,0.1538,1,1.0,0,correct,1828.9,0.979,deepgram,F2_hsr_layout.wav,quiet,friend_2,,
+Koramangala,Haan main Koramangala mein rehta hoon,"ham, maim koramamgala mem rahata hum.",1.0,0.2973,1,0.9636,1,correct,2499.17,0.998,deepgram,F2_koramangala.wav,quiet,friend_2,,
+Koramangala,Haan main Koramangala mein rehta hoon,ha.n maim kora mamgala mem rahata hu.n,1.1667,0.2703,1,0.9485,2,correct,1304.27,0.9664,whisper,01_koramangala_quiet.wav,quiet,self,False,
+Indiranagar,Mera ghar Indiranagar ke paas hai,mera ghara imdranagara ke basa hai,0.5,0.2121,1,0.8242,3,correct,1139.3,0.9277,whisper,02_indiranagar_quiet.wav,quiet,self,False,
+Whitefield,Office Whitefield mein hai yaar,ऑphisa vaita philma mem a rahe haim,1.4,0.7419,0,0.4794,10,catastrophic,1222.64,0.7481,whisper,03_whitefield_traffic.wav,traffic,self,False,
+Electronic City,Main Electronic City se aa raha hoon,maim riktonika siti se a raha hu.n,0.7143,0.3611,0,0.4669,15,catastrophic,1225.45,0.8296,whisper,04_electronic_city_traffic.wav,traffic,self,False,
+Marathahalli,Bhai Marathahalli bridge ke paas milte hain,bhai maharatana ji drrija ke basa milate haim,0.8571,0.3721,0,0.792,6,recoverable,1317.81,0.7937,whisper,05_marathahalli_street.wav,street,self,False,
+Jayanagar,Jayanagar fourth block mein rehta hoon main,jainagara phortha blaॉka mem rahata hu.n maim,1.0,0.3953,1,0.8407,3,correct,1315.13,0.8767,whisper,06_jayanagar_quiet.wav,quiet,self,False,
+Rajajinagar,Rajajinagar se auto lena padega,rajaji nakara se vato lena pa.dega,0.6,0.1613,1,0.9357,3,correct,1290.85,0.8325,whisper,07_rajajinagar_rushed.wav,rushed,self,False,
+Hebbal,Hebbal flyover ke paas hoon abhi,hebara phlaivara ke pasa mauvi,0.8333,0.5625,1,0.8444,3,correct,1268.58,0.8528,whisper,08_hebbal_traffic.wav,traffic,self,False,
+Yelahanka,Main Yelahanka New Town mein rehta hoon,maim yelahamka nyutauna mem rahata hu.n,1.0,0.359,1,0.9556,1,correct,1446.74,0.9219,whisper,09_yelahanka_quiet.wav,quiet,self,False,
+Banashankari,Banashankari bus stop ke paas hun,ana shamkari bastoka ke basa hu.n,0.6667,0.3333,1,0.8889,3,correct,1264.78,0.85,whisper,10_banashankari_whisper.wav,whisper,self,False,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr levaota sektara 2 mem phlaita chi hai,1.0,0.5641,1,0.9055,5,correct,1266.69,0.7809,whisper,11_hsr_layout_rushed.wav,rushed,self,False,
+BTM Layout,BTM Layout mein room milega kya,bidiyama leyauta mem ruma mem laga kya?,1.0,0.5806,0,0.5452,10,degraded,1551.05,0.8669,whisper,12_btm_layout_phone.wav,phone,self,False,
+Majestic,Majestic se bus pakadni hai abhi,mejestika se basa paga.dane abhi hai,0.8333,0.4375,1,0.775,3,correct,1314.44,0.7971,whisper,13_majestic_street.wav,street,self,False,
+Silk Board,Silk Board junction pe jam hai bhai,silkora jamkshana pe jaima hai bhai,0.5714,0.3714,0,0.9114,4,recoverable,1459.25,0.8226,whisper,14_silk_board_traffic.wav,traffic,self,False,
+Bellandur,Bellandur ke paas kaam dhundh raha hoon,belamdura ke pasa kama dhumdha rahum,0.8571,0.3846,1,0.8963,3,correct,1264.41,0.8278,whisper,15_bellandur_quiet.wav,quiet,self,False,
+Sarjapur,Sarjapur road pe flat lena hai,sarajapura roda pe phlata lena hai,0.5,0.2333,1,0.9242,2,correct,1272.1,0.8629,whisper,16_sarjapur_whisper.wav,whisper,self,False,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,biyata rahane pura mem rahata hu.n maim,1.4,0.3333,0,0.7877,8,recoverable,1355.39,0.8877,whisper,17_byatarayanapura_quiet.wav,quiet,self,False,
+KR Puram,KR Puram station ke paas milte hain,ki arpurama steshana ke basa milate haim,0.8571,0.4,0,0.8333,3,recoverable,1429.0,0.8526,whisper,18_kr_puram_street.wav,street,self,False,
+Peenya,Peenya industrial area mein job hai,pini imdastrala eliya mem jaॉba hai|,0.8333,0.4571,0,0.5268,6,degraded,1445.66,0.8667,whisper,19_peenya_rushed.wav,rushed,self,False,
+Thanisandra,Thanisandra main road pe rehta hoon,thani semdra mem roda pe rahata hu.n,1.0,0.3429,0,0.8914,3,recoverable,1411.13,0.8945,whisper,20_thanisandra_quiet.wav,quiet,self,False,
+Byatarayanapura,Byatarayanapura mein rehti hoon main,byata raya na pura mem rahati hu.n maim,1.6,0.2778,1,0.9,7,correct,1317.43,0.894,whisper,F1_byatarayanapura.wav,quiet,friend_1,False,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahie,0.4286,0.1538,1,1.0,0,correct,1026.93,0.8658,whisper,F1_hsr_layout.wav,quiet,friend_1,False,
+Koramangala,Haan main Koramangala mein rehti hoon,ha.n maim kora mamgala mem rahati hu.n,1.1667,0.2703,1,0.9485,2,correct,1213.0,0.9191,whisper,F1_koramangala.wav,quiet,friend_1,False,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,byata rayanapura mem rahata hu.n maim,1.2,0.2222,1,0.9875,1,correct,1281.67,0.8981,whisper,F2_byatarayanapura.wav,quiet,friend_2,False,
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahie,0.4286,0.1538,1,1.0,0,correct,1030.85,0.7301,whisper,F2_hsr_layout.wav,quiet,friend_2,False,
+Koramangala,Haan main Koramangala mein rehta hoon,ha.n maim koramamgala mem rahata hu.n,1.0,0.2432,1,0.9636,1,correct,1226.89,0.9208,whisper,F2_koramangala.wav,quiet,friend_2,False,
+Koramangala,Haan main Koramangala mein rehta hoon,ha mem kora mamgala mem rahata hum,1.1667,0.3784,1,0.9485,2,correct,1212.08,,indicconformer,01_koramangala_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Indiranagar,Mera ghar Indiranagar ke paas hai,mera gara imdra nagara ke pasa hai,0.6667,0.2424,1,0.8038,4,correct,1267.92,,indicconformer,02_indiranagar_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Whitefield,Office Whitefield mein hai yaar,apa dekha dekha rahe hai,1.0,0.7742,0,0.4389,10,catastrophic,1056.14,,indicconformer,03_whitefield_traffic.wav,traffic,self,,huggingface_whisper_fallback
+Electronic City,Main Electronic City se aa raha hoon,mem vikronika shiti sa raha haim,0.8571,0.5278,0,0.4694,15,catastrophic,1236.5,,indicconformer,04_electronic_city_traffic.wav,traffic,self,,huggingface_whisper_fallback
+Marathahalli,Bhai Marathahalli bridge ke paas milte hain,bai marata aji bruja ke vaja mulate haim,1.0,0.3488,0,0.8933,4,recoverable,1683.81,,indicconformer,05_marathahalli_street.wav,street,self,,huggingface_whisper_fallback
+Jayanagar,Jayanagar fourth block mein rehta hoon main,jainagara phoda blaॉka mem rahata hu.n maim,1.0,0.4419,1,0.8407,3,correct,1391.88,,indicconformer,06_jayanagar_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Rajajinagar,Rajajinagar se auto lena padega,raza dinina karate se va.da lina pa.dega,1.0,0.4839,0,0.6459,11,degraded,1803.33,,indicconformer,07_rajajinagar_rushed.wav,rushed,self,,huggingface_whisper_fallback
+Hebbal,Hebbal flyover ke paas hoon abhi,hebara phlaivara ke pasmobhi,0.8333,0.5,1,0.8444,3,correct,1392.53,,indicconformer,08_hebbal_traffic.wav,traffic,self,,huggingface_whisper_fallback
+Yelahanka,Main Yelahanka New Town mein rehta hoon,maim yelahamga ka nivatauna mem rahata hum,1.0,0.4615,0,0.9111,2,recoverable,1842.86,,indicconformer,09_yelahanka_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Banashankari,Banashankari bus stop ke paas hun,banasham kariba astoka ke pasom,0.8333,0.3939,1,0.93,4,correct,1192.09,,indicconformer,10_banashankari_whisper.wav,whisper,self,,huggingface_whisper_fallback
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flight shie hai,0.7143,0.3846,1,1.0,0,correct,962.99,,indicconformer,11_hsr_layout_rushed.wav,rushed,self,,huggingface_whisper_fallback
+BTM Layout,BTM Layout mein room milega kya,bdm layout mem room mem lega kya,0.6667,0.1935,1,0.94,1,correct,1033.27,,indicconformer,12_btm_layout_phone.wav,phone,self,,huggingface_whisper_fallback
+Majestic,Majestic se bus pakadni hai abhi,majistika se basa ko garane abhi hai,0.8333,0.5625,1,0.825,3,correct,1249.47,,indicconformer,13_majestic_street.wav,street,self,,huggingface_whisper_fallback
+Silk Board,Silk Board junction pe jam hai bhai,silgota jamkshana pe jame bai,0.8571,0.5143,0,0.5519,10,degraded,1287.36,,indicconformer,14_silk_board_traffic.wav,traffic,self,,huggingface_whisper_fallback
+Bellandur,Bellandur ke paas kaam dhundh raha hoon,belana dura ke pasa kama tunada rahum|,1.0,0.4615,0,0.9104,4,recoverable,1398.53,,indicconformer,15_bellandur_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Sarjapur,Sarjapur road pe flat lena hai,sarjapura rota pe phlata lena haim,0.6667,0.2333,1,1.0,0,correct,1396.92,,indicconformer,16_sarjapur_whisper.wav,whisper,self,,huggingface_whisper_fallback
+Byatarayanapura,Byatarayanapura mein rehta hoon main,bhyata rahane pura mem rahata hu.n maim,1.4,0.3333,0,0.7877,8,recoverable,1602.05,,indicconformer,17_byatarayanapura_quiet.wav,quiet,self,,huggingface_whisper_fallback
+KR Puram,KR Puram station ke paas milte hain,kyara puramstesham ke baja malate haim,0.8571,0.4286,1,0.6898,10,correct,1661.05,,indicconformer,18_kr_puram_street.wav,street,self,,huggingface_whisper_fallback
+Peenya,Peenya industrial area mein job hai,pini im.dasra lieme javabha hai,0.8333,0.5714,0,0.5167,6,degraded,1647.58,,indicconformer,19_peenya_rushed.wav,rushed,self,,huggingface_whisper_fallback
+Thanisandra,Thanisandra main road pe rehta hoon,thani samdara mem rota pe rahata hum,1.0,0.3714,1,0.9157,3,correct,1361.73,,indicconformer,20_thanisandra_quiet.wav,quiet,self,,huggingface_whisper_fallback
+Byatarayanapura,Byatarayanapura mein rehti hoon main,bhyata rayana pura mem rahati hu.n maim|,1.4,0.2778,1,0.8738,6,correct,1469.55,,indicconformer,F1_byatarayanapura.wav,quiet,friend_1,,huggingface_whisper_fallback
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahiye,0.2857,0.1282,1,1.0,0,correct,918.15,,indicconformer,F1_hsr_layout.wav,quiet,friend_1,,huggingface_whisper_fallback
+Koramangala,Haan main Koramangala mein rehti hoon,ha maim kormamgala maim rahati hu,1.0,0.3243,1,0.8565,2,correct,1189.27,,indicconformer,F1_koramangala.wav,quiet,friend_1,,huggingface_whisper_fallback
+Byatarayanapura,Byatarayanapura mein rehta hoon main,bhyata raya napara mem reta hu.n nahim,1.4,0.3333,1,0.8255,8,correct,1407.31,,indicconformer,F2_byatarayanapura.wav,quiet,friend_2,,huggingface_whisper_fallback
+HSR Layout,HSR Layout sector two mein flat chahiye,hsr layout sector 2 mem flat chahi hai,0.5714,0.2308,1,1.0,0,correct,912.29,,indicconformer,F2_hsr_layout.wav,quiet,friend_2,,huggingface_whisper_fallback
+Koramangala,Haan main Koramangala mein rehta hoon,ha maim kaurmamgala mem rahata hum,1.0,0.3784,0,0.8576,4,recoverable,1206.9,,indicconformer,F2_koramangala.wav,quiet,friend_2,,huggingface_whisper_fallback
+Koramangala,Haan main Koramangala mein rehta hoon,"ha.n, maim koramamgala mem rahata hu.n|",1.0,0.2432,1,0.9636,1,correct,787.66,,sarvam,01_koramangala_quiet.wav,quiet,self,,
+Indiranagar,Mera ghar Indiranagar ke paas hai,mera ghara imdra nagara ke pasa hai|,0.6667,0.2121,1,0.8038,4,correct,738.25,,sarvam,02_indiranagar_quiet.wav,quiet,self,,
+Whitefield,Office Whitefield mein hai yaar,ऑphisa vaita philda mem hai yara|,1.0,0.5484,0,0.5443,10,degraded,742.78,,sarvam,03_whitefield_traffic.wav,traffic,self,,
+Electronic City,Main Electronic City se aa raha hoon,maim ilektraॉnika siti se a raha hu.n|,0.7143,0.3056,0,0.4709,15,catastrophic,750.26,,sarvam,04_electronic_city_traffic.wav,traffic,self,,
+Marathahalli,Bhai Marathahalli bridge ke paas milte hain,bhai maratha hai ji brija ke pasa milate haim,1.0,0.2558,1,0.9485,3,correct,753.51,,sarvam,05_marathahalli_street.wav,street,self,,
+Jayanagar,Jayanagar fourth block mein rehta hoon main,jayanagara phortha blaॉka mem rahata hu.n maim|,1.0,0.3488,1,1.0,0,correct,719.88,,sarvam,06_jayanagar_quiet.wav,quiet,self,,
+Rajajinagar,Rajajinagar se auto lena padega,rajaji nagara se vaॉtara lena pa.dega|,0.6,0.2258,1,0.9692,2,correct,638.9,,sarvam,07_rajajinagar_rushed.wav,rushed,self,,
+Hebbal,Hebbal flyover ke paas hoon abhi,hebala phlaiovara ke pasa muvi|,0.8333,0.5312,1,0.9222,2,correct,744.5,,sarvam,08_hebbal_traffic.wav,traffic,self,,
+Yelahanka,Main Yelahanka New Town mein rehta hoon,maim yelahamka nyu tauna mem rahata hu.n,1.0,0.3333,1,0.9556,1,correct,748.33,,sarvam,09_yelahanka_quiet.wav,quiet,self,,
+Banashankari,Banashankari bus stop ke paas hun,maim shamkari basa staॉpa ke pasa hum|,1.0,0.3636,0,0.7242,5,degraded,693.39,,sarvam,10_banashankari_whisper.wav,whisper,self,,
+HSR Layout,HSR Layout sector two mein flat chahiye,echaesaara leauta sektara tu mem phlaita chahie|,1.0,0.5897,0,0.5734,10,degraded,701.43,,sarvam,11_hsr_layout_rushed.wav,rushed,self,,
+BTM Layout,BTM Layout mein room milega kya,bidiema leauta mem ruma mem lagao kya?,1.0,0.6129,0,0.5345,10,degraded,732.39,,sarvam,12_btm_layout_phone.wav,phone,self,,
+Majestic,Majestic se bus pakadni hai abhi,maijestika se basa paka.dani hai abhi|,0.5,0.1875,1,0.8105,3,correct,740.04,,sarvam,13_majestic_street.wav,street,self,,
+Silk Board,Silk Board junction pe jam hai bhai,silgo jamkshana pe jaima hai bhai|,0.5714,0.4286,0,0.5898,10,degraded,719.84,,sarvam,14_silk_board_traffic.wav,traffic,self,,
+Bellandur,Bellandur ke paas kaam dhundh raha hoon,belanadora ke pasa kama dhumdha raha hu.n|,0.7143,0.3077,0,0.8781,4,recoverable,719.65,,sarvam,15_bellandur_quiet.wav,quiet,self,,
+Sarjapur,Sarjapur road pe flat lena hai,sarajapura roda pe phlaita lena hai|,0.5,0.2667,1,0.9242,2,correct,736.06,,sarvam,16_sarjapur_whisper.wav,whisper,self,,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,byatara yanepura mem rahata hu.n maim|,1.2,0.25,1,0.9331,2,correct,732.5,,sarvam,17_byatarayanapura_quiet.wav,quiet,self,,
+KR Puram,KR Puram station ke paas milte hain,kearapurama steshana ke pasa milate haim|,0.8571,0.3714,0,0.7677,4,recoverable,708.43,,sarvam,18_kr_puram_street.wav,street,self,,
+Peenya,Peenya industrial area mein job hai,pi nahim imdastriyala eriya mem jaॉba hai|,1.0,0.4857,0,0.5056,6,degraded,640.87,,sarvam,19_peenya_rushed.wav,rushed,self,,
+Thanisandra,Thanisandra main road pe rehta hoon,thani saimtra mem roda para rahata hu.n|,1.1667,0.4571,0,0.9021,4,recoverable,725.39,,sarvam,20_thanisandra_quiet.wav,quiet,self,,
+Byatarayanapura,Byatarayanapura mein rehti hoon main,byata rayanapura mem rahati hu.n maim|,1.2,0.2222,1,0.9875,1,correct,666.23,,sarvam,F1_byatarayanapura.wav,quiet,friend_1,,
+HSR Layout,HSR Layout sector two mein flat chahiye,echaesaara leauta sektara tu mem phlaita chahie|,1.0,0.5897,0,0.5734,10,degraded,804.28,,sarvam,F1_hsr_layout.wav,quiet,friend_1,,
+Koramangala,Haan main Koramangala mein rehti hoon,"ha.n, maim koramamgala mem rahati hu.n|",1.0,0.2432,1,0.9636,1,correct,675.21,,sarvam,F1_koramangala.wav,quiet,friend_1,,
+Byatarayanapura,Byatarayanapura mein rehta hoon main,byata rayanapura mem rahata hu.n maim,1.2,0.2222,1,0.9875,1,correct,708.93,,sarvam,F2_byatarayanapura.wav,quiet,friend_2,,
+HSR Layout,HSR Layout sector two mein flat chahiye,echaesaara leauta sektara tu mem phlaita chahie|,1.0,0.5897,0,0.5734,10,degraded,679.34,,sarvam,F2_hsr_layout.wav,quiet,friend_2,,
+Koramangala,Haan main Koramangala mein rehta hoon,"ha.n, maim koramamgala mem rahata hu.n|",1.0,0.2432,1,0.9636,1,correct,657.96,,sarvam,F2_koramangala.wav,quiet,friend_2,,

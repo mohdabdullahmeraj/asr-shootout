@@ -1,34 +1,25 @@
 """
-Deepgram Nova-3 ASR client — SDK v6 compatible.
+Deepgram Nova-3 ASR client — REST API fallback.
 """
 
 import os
 import time
 import logging
+import requests
 from pathlib import Path
-from typing import Optional
-
-from deepgram import DeepgramClient
 
 logger = logging.getLogger(__name__)
 
-
-def get_client() -> DeepgramClient:
-    """Initialize Deepgram client from environment variable."""
-    api_key = os.environ.get("DEEPGRAM_API_KEY")
-    if not api_key or api_key == "your_deepgram_api_key_here":
-        raise ValueError("DEEPGRAM_API_KEY not set.")
-    return DeepgramClient(api_key)
-
-
 def transcribe_file(
     audio_path: str | Path,
-    client: Optional[DeepgramClient] = None,
+    client=None,  # kept for compatibility
     language: str = "hi",
     model: str = "nova-3",
 ) -> dict:
-    if client is None:
-        client = get_client()
+    api_key = os.environ.get("DEEPGRAM_API_KEY")
+    if not api_key or api_key == "your_deepgram_api_key_here":
+        return {"transcript": "", "confidence": None, "latency_ms": None,
+                "words": [], "error": "DEEPGRAM_API_KEY not set"}
 
     audio_path = Path(audio_path)
     if not audio_path.exists():
@@ -41,32 +32,37 @@ def transcribe_file(
 
         start_time = time.perf_counter()
 
-        response = client.listen.v1.media.transcribe_file(
-            request=audio_data,
-            model=model,
-            language=language,
-            smart_format=True,
-            punctuate=True,
-            words=True,
-        )
+        url = "https://api.deepgram.com/v1/listen"
+        params = {
+            "model": model,
+            "language": language,
+            "smart_format": "true",
+            "punctuate": "true",
+            "words": "true"
+        }
+        headers = {
+            "Authorization": f"Token {api_key}",
+            "Content-Type": "audio/wav" # Deepgram auto-detects actual type
+        }
 
+        response = requests.post(url, params=params, headers=headers, data=audio_data)
+        
         latency_ms = (time.perf_counter() - start_time) * 1000
 
-        alt = response.results.channels[0].alternatives[0]
-        transcript = alt.transcript or ""
-        confidence = alt.confidence
+        if response.status_code != 200:
+            return {"transcript": "", "confidence": None, "latency_ms": latency_ms,
+                    "words": [], "error": f"Deepgram API Error: {response.text}"}
 
-        words = []
-        if hasattr(alt, "words") and alt.words:
-            words = [
-                {
-                    "word": w.word,
-                    "start": w.start,
-                    "end": w.end,
-                    "confidence": w.confidence,
-                }
-                for w in alt.words
-            ]
+        result = response.json()
+        channels = result.get("results", {}).get("channels", [])
+        if not channels:
+            return {"transcript": "", "confidence": None, "latency_ms": latency_ms,
+                    "words": [], "error": "No channels in response"}
+            
+        alt = channels[0].get("alternatives", [{}])[0]
+        transcript = alt.get("transcript", "")
+        confidence = alt.get("confidence", None)
+        words = alt.get("words", [])
 
         return {
             "transcript": transcript,
@@ -93,14 +89,13 @@ def transcribe_batch(
     model: str = "nova-3",
     verbose: bool = True,
 ) -> list[dict]:
-    client = get_client()
     results = []
 
     for i, path in enumerate(audio_paths):
         if verbose:
             print(f"  [Deepgram] {i+1}/{len(audio_paths)}: {Path(path).name}")
 
-        result = transcribe_file(path, client=client, language=language, model=model)
+        result = transcribe_file(path, language=language, model=model)
         result["filename"] = Path(path).name
         results.append(result)
 
@@ -114,19 +109,10 @@ def transcribe_chunk_latency_test(
     audio_path: str | Path,
     chunk_durations_s: list[float] = [3.0, 5.0, 10.0],
 ) -> list[dict]:
-    """
-    Special test: measure latency on audio chunks of varying duration.
-
-    This simulates how telephony systems work — VAD detects end of utterance
-    and sends a short chunk (typically 2-5 seconds) to ASR.
-
-    Returns list of {chunk_duration_s, latency_ms, transcript} dicts.
-    """
     import librosa
     import soundfile as sf
     import tempfile
 
-    client = get_client()
     audio, sr = librosa.load(str(audio_path), sr=16000, mono=True)
     results = []
 
@@ -138,7 +124,7 @@ def transcribe_chunk_latency_test(
             chunk_path = Path(tmpdir) / f"chunk_{duration}s.wav"
             sf.write(str(chunk_path), chunk, sr)
 
-            result = transcribe_file(chunk_path, client=client)
+            result = transcribe_file(chunk_path)
             results.append({
                 "chunk_duration_s": duration,
                 "latency_ms": result["latency_ms"],

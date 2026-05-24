@@ -1,0 +1,5 @@
+Model,Entity Acc %,WER,CER,JWS,Latency ms,Correct,Recoverable,Catastrophic
+deepgram,50.0,0.7663,0.3012,0.8028,1814.3,13,4,1
+whisper,65.4,0.9005,0.3536,0.8374,1294.7,17,5,2
+indicconformer,61.5,0.917,0.3954,0.8183,1337.8,16,5,2
+sarvam,53.8,0.9125,0.3629,0.7989,717.9,14,3,1
