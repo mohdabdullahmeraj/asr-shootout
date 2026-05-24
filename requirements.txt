@@ -1,0 +1,48 @@
+# ============================================================
+# ASR Shootout — Python Dependencies
+# Install: pip install -r requirements.txt
+# ============================================================
+
+# --- Core Audio Processing ---
+librosa>=0.10.1              # Audio loading, resampling
+soundfile>=0.12.1            # Read/write audio files
+pydub>=0.25.1                # Audio manipulation (splitting, format conversion)
+numpy>=1.24.0
+
+# --- ASR: Deepgram ---
+deepgram-sdk>=6.0.0
+
+# --- ASR: Whisper ---
+faster-whisper>=1.0.0        # Drop-in Whisper replacement, 4x faster, same accuracy
+# Alternative: openai-whisper>=20231117 (if faster-whisper doesn't work)
+
+# --- ASR: IndicConformer (AI4Bharat via NeMo) ---
+# NeMo is large; install separately on Colab with:
+# pip install nemo_toolkit['asr']
+# Listed here for documentation purposes:
+# nemo_toolkit[asr]>=1.22.0
+
+# --- ASR: Sarvam ---
+requests>=2.31.0             # REST API calls to Sarvam
+
+# --- Metrics ---
+jiwer>=3.0.3                 # WER + CER computation
+rapidfuzz>=3.5.0             # Fuzzy matching + Jaro-Winkler + Levenshtein
+jellyfish>=1.0.0             # Phonetic algorithms (Soundex, Metaphone)
+
+# --- Data Handling ---
+pandas>=2.0.0
+python-dotenv>=1.0.0
+
+# --- Visualization ---
+matplotlib>=3.7.0
+seaborn>=0.13.0
+
+# --- Open-Source Datasets ---
+datasets>=2.16.0             # HuggingFace datasets (FLEURS, MUCS)
+huggingface_hub>=0.20.0
+
+# --- Utilities ---
+tqdm>=4.66.0                 # Progress bars
+tabulate>=0.9.0              # Pretty-print tables
+scipy>=1.11.0                # Signal processing (noise generation)

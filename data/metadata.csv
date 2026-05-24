@@ -1,0 +1,27 @@
+filename,locality,condition,speaker,language,reference_transcript
+01_koramangala_quiet.wav,Koramangala,quiet,self,hinglish,Haan main Koramangala mein rehta hoon
+02_indiranagar_quiet.wav,Indiranagar,quiet,self,hinglish,Mera ghar Indiranagar ke paas hai
+03_whitefield_traffic.wav,Whitefield,traffic,self,hinglish,Office Whitefield mein hai yaar
+04_electronic_city_traffic.wav,Electronic City,traffic,self,hinglish,Main Electronic City se aa raha hoon
+05_marathahalli_street.wav,Marathahalli,street,self,hinglish,Bhai Marathahalli bridge ke paas milte hain
+06_jayanagar_quiet.wav,Jayanagar,quiet,self,hinglish,Jayanagar fourth block mein rehta hoon main
+07_rajajinagar_rushed.wav,Rajajinagar,rushed,self,hinglish,Rajajinagar se auto lena padega
+08_hebbal_traffic.wav,Hebbal,traffic,self,hinglish,Hebbal flyover ke paas hoon abhi
+09_yelahanka_quiet.wav,Yelahanka,quiet,self,hinglish,Main Yelahanka New Town mein rehta hoon
+10_banashankari_whisper.wav,Banashankari,whisper,self,hinglish,Banashankari bus stop ke paas hun
+11_hsr_layout_rushed.wav,HSR Layout,rushed,self,hinglish,HSR Layout sector two mein flat chahiye
+12_btm_layout_phone.wav,BTM Layout,phone,self,hinglish,BTM Layout mein room milega kya
+13_majestic_street.wav,Majestic,street,self,hinglish,Majestic se bus pakadni hai abhi
+14_silk_board_traffic.wav,Silk Board,traffic,self,hinglish,Silk Board junction pe jam hai bhai
+15_bellandur_quiet.wav,Bellandur,quiet,self,hinglish,Bellandur ke paas kaam dhundh raha hoon
+16_sarjapur_whisper.wav,Sarjapur,whisper,self,hinglish,Sarjapur road pe flat lena hai
+17_byatarayanapura_quiet.wav,Byatarayanapura,quiet,self,hinglish,Byatarayanapura mein rehta hoon main
+18_kr_puram_street.wav,KR Puram,street,self,hinglish,KR Puram station ke paas milte hain
+19_peenya_rushed.wav,Peenya,rushed,self,hinglish,Peenya industrial area mein job hai
+20_thanisandra_quiet.wav,Thanisandra,quiet,self,hinglish,Thanisandra main road pe rehta hoon
+F1_koramangala.wav,Koramangala,quiet,friend_1,hinglish,Haan main Koramangala mein rehti hoon
+F1_byatarayanapura.wav,Byatarayanapura,quiet,friend_1,hinglish,Byatarayanapura mein rehti hoon main
+F1_hsr_layout.wav,HSR Layout,quiet,friend_1,hinglish,HSR Layout sector two mein flat chahiye
+F2_koramangala.wav,Koramangala,quiet,friend_2,hinglish,Haan main Koramangala mein rehta hoon
+F2_byatarayanapura.wav,Byatarayanapura,quiet,friend_2,hinglish,Byatarayanapura mein rehta hoon main
+F2_hsr_layout.wav,HSR Layout,quiet,friend_2,hinglish,HSR Layout sector two mein flat chahiye

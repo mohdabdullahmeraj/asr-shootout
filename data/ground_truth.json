@@ -1,0 +1,270 @@
+{
+  "version": "1.0",
+  "description": "Ground truth transcriptions for 20 self-recorded ASR evaluation samples",
+  "language": "Hinglish (Hindi + English code-switched)",
+  "target_domain": "Bangalore locality names in conversational speech",
+  "recordings": [
+    {
+      "id": "01",
+      "filename": "01_koramangala_quiet.wav",
+      "locality": "Koramangala",
+      "reference_transcript": "Haan main Koramangala mein rehta hoon",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Clear, slow, conversational"
+    },
+    {
+      "id": "02",
+      "filename": "02_indiranagar_quiet.wav",
+      "locality": "Indiranagar",
+      "reference_transcript": "Mera ghar Indiranagar ke paas hai",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Natural pace"
+    },
+    {
+      "id": "03",
+      "filename": "03_whitefield_traffic.wav",
+      "locality": "Whitefield",
+      "reference_transcript": "Office Whitefield mein hai yaar",
+      "condition": "traffic",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Recorded near road or with traffic audio in background"
+    },
+    {
+      "id": "04",
+      "filename": "04_electronic_city_traffic.wav",
+      "locality": "Electronic City",
+      "reference_transcript": "Main Electronic City se aa raha hoon",
+      "condition": "traffic",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Two-word locality name — tests segmentation"
+    },
+    {
+      "id": "05",
+      "filename": "05_marathahalli_street.wav",
+      "locality": "Marathahalli",
+      "reference_transcript": "Bhai Marathahalli bridge ke paas milte hain",
+      "condition": "street",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Background chatter/crowd noise"
+    },
+    {
+      "id": "06",
+      "filename": "06_jayanagar_quiet.wav",
+      "locality": "Jayanagar",
+      "reference_transcript": "Jayanagar fourth block mein rehta hoon main",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Natural word order inversion at end"
+    },
+    {
+      "id": "07",
+      "filename": "07_rajajinagar_rushed.wav",
+      "locality": "Rajajinagar",
+      "reference_transcript": "Rajajinagar se auto lena padega",
+      "condition": "rushed",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Speak fast, like you're in a hurry"
+    },
+    {
+      "id": "08",
+      "filename": "08_hebbal_traffic.wav",
+      "locality": "Hebbal",
+      "reference_transcript": "Hebbal flyover ke paas hoon abhi",
+      "condition": "traffic",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Short utterance — tests brevity handling"
+    },
+    {
+      "id": "09",
+      "filename": "09_yelahanka_quiet.wav",
+      "locality": "Yelahanka",
+      "reference_transcript": "Main Yelahanka New Town mein rehta hoon",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Three-word locality variant"
+    },
+    {
+      "id": "10",
+      "filename": "10_banashankari_whisper.wav",
+      "locality": "Banashankari",
+      "reference_transcript": "Banashankari bus stop ke paas hun",
+      "condition": "whisper",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Whispered — stress test for noise-sensitive models"
+    },
+    {
+      "id": "11",
+      "filename": "11_hsr_layout_rushed.wav",
+      "locality": "HSR Layout",
+      "reference_transcript": "HSR Layout sector two mein flat chahiye",
+      "condition": "rushed",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Abbreviation + English word — tests code-switching"
+    },
+    {
+      "id": "12",
+      "filename": "12_btm_layout_phone.wav",
+      "locality": "BTM Layout",
+      "reference_transcript": "BTM Layout mein room milega kya",
+      "condition": "phone",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Simulate phone call: record in bathroom or with slight reverb"
+    },
+    {
+      "id": "13",
+      "filename": "13_majestic_street.wav",
+      "locality": "Majestic",
+      "reference_transcript": "Majestic se bus pakadni hai abhi",
+      "condition": "street",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Common colloquial name for Kempegowda Bus Station"
+    },
+    {
+      "id": "14",
+      "filename": "14_silk_board_traffic.wav",
+      "locality": "Silk Board",
+      "reference_transcript": "Silk Board junction pe jam hai bhai",
+      "condition": "traffic",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Very recognizable Bangalore landmark — good sanity check"
+    },
+    {
+      "id": "15",
+      "filename": "15_bellandur_quiet.wav",
+      "locality": "Bellandur",
+      "reference_transcript": "Bellandur ke paas kaam dhundh raha hoon",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Natural, slightly longer sentence"
+    },
+    {
+      "id": "16",
+      "filename": "16_sarjapur_whisper.wav",
+      "locality": "Sarjapur",
+      "reference_transcript": "Sarjapur road pe flat lena hai",
+      "condition": "whisper",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Second whisper sample — different locality"
+    },
+    {
+      "id": "17",
+      "filename": "17_byatarayanapura_quiet.wav",
+      "locality": "Byatarayanapura",
+      "reference_transcript": "Byatarayanapura mein rehta hoon main",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "HARDEST name — 7 syllables, Kannada origin. Key test case."
+    },
+    {
+      "id": "18",
+      "filename": "18_kr_puram_street.wav",
+      "locality": "KR Puram",
+      "reference_transcript": "KR Puram station ke paas milte hain",
+      "condition": "street",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Initialism — does model spell it K R Puram or Krishnarajapuram?"
+    },
+    {
+      "id": "19",
+      "filename": "19_peenya_rushed.wav",
+      "locality": "Peenya",
+      "reference_transcript": "Peenya industrial area mein job hai",
+      "condition": "rushed",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Short name, rushed — easy locality but hard condition"
+    },
+    {
+      "id": "20",
+      "filename": "20_thanisandra_quiet.wav",
+      "locality": "Thanisandra",
+      "reference_transcript": "Thanisandra main road pe rehta hoon",
+      "condition": "quiet",
+      "speaker": "self",
+      "language": "hinglish",
+      "notes": "Less common locality — tests model vocabulary coverage"
+    }
+  ],
+  "friend_recordings": [
+    {
+      "id": "F1_01",
+      "filename": "F1_koramangala.wav",
+      "locality": "Koramangala",
+      "reference_transcript": "Haan main Koramangala mein rehti hoon",
+      "condition": "quiet",
+      "speaker": "friend_1",
+      "language": "hinglish",
+      "notes": "Friend 1 — different accent (e.g. UP/Bihar/South Indian)"
+    },
+    {
+      "id": "F1_02",
+      "filename": "F1_byatarayanapura.wav",
+      "locality": "Byatarayanapura",
+      "reference_transcript": "Byatarayanapura mein rehti hoon main",
+      "condition": "quiet",
+      "speaker": "friend_1",
+      "language": "hinglish",
+      "notes": "Hardest name — accent robustness test"
+    },
+    {
+      "id": "F1_03",
+      "filename": "F1_hsr_layout.wav",
+      "locality": "HSR Layout",
+      "reference_transcript": "HSR Layout sector two mein flat chahiye",
+      "condition": "quiet",
+      "speaker": "friend_1",
+      "language": "hinglish",
+      "notes": "Abbreviation with different accent"
+    },
+    {
+      "id": "F2_01",
+      "filename": "F2_koramangala.wav",
+      "locality": "Koramangala",
+      "reference_transcript": "Haan main Koramangala mein rehta hoon",
+      "condition": "quiet",
+      "speaker": "friend_2",
+      "language": "hinglish",
+      "notes": "Friend 2 — ideally different regional accent from Friend 1"
+    },
+    {
+      "id": "F2_02",
+      "filename": "F2_byatarayanapura.wav",
+      "locality": "Byatarayanapura",
+      "reference_transcript": "Byatarayanapura mein rehta hoon main",
+      "condition": "quiet",
+      "speaker": "friend_2",
+      "language": "hinglish",
+      "notes": "Cross-accent on hardest name"
+    },
+    {
+      "id": "F2_03",
+      "filename": "F2_hsr_layout.wav",
+      "locality": "HSR Layout",
+      "reference_transcript": "HSR Layout sector two mein flat chahiye",
+      "condition": "quiet",
+      "speaker": "friend_2",
+      "language": "hinglish",
+      "notes": "Abbreviation with second friend accent"
+    }
+  ]
+}
