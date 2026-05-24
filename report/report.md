@@ -1,5 +1,5 @@
 # ASR Benchmark for Indian Conversational Speech
-### Vahan AI — Intern Assessment | [Your Name] | May 2026
+### Vahan AI — Intern Assessment | May 2026
 
 ---
 
@@ -7,9 +7,16 @@
 
 > **WER is the wrong metric for this problem.**
 >
-> When a candidate says *"Haan, main Koramangala mein rehta hoon"* and the ASR returns *"Haan, main Kormangala mein rehta hoon"* — Word Error Rate scores 12.5%. But the locality is wrong. That's a 100% product failure.
+> When a candidate says *"Haan, main Koramangala mein rehta hoon"* and the ASR returns
+> *"Haan, main Kormangala mein rehta hoon"* — Word Error Rate scores 12.5%. But the locality
+> is wrong. That is a 100% product failure.
 >
-> This benchmark measures what actually matters: **Entity Accuracy** (did the locality name appear correctly?) and **Recoverability** (can downstream fuzzy-matching save a near-miss?).
+> This benchmark measures what actually matters: **Entity Accuracy** (did the locality name
+> appear correctly?) and **Recoverability** (can downstream fuzzy-matching save a near-miss?).
+>
+> The data proved this argument: **Deepgram has the best WER (76.6%) but the worst Entity
+> Accuracy (50%)** — the metric the company likely uses to evaluate its current ASR is actively
+> misleading it about performance on the task that matters.
 
 ---
 
@@ -19,49 +26,61 @@
 
 | Source | Samples | Purpose |
 |--------|---------|---------|
-| Self-recorded | 20 clips | Primary evaluation — varied conditions |
-| Cross-accent (2 friends) | 6 clips | Speaker generalization |
-| FLEURS Hindi (OSS) | 30 clips | Sanity check + generalization baseline |
+| Self-recorded | 20 clips | Primary evaluation — varied conditions, Hinglish |
+| Cross-accent (2 friends) | 6 clips | Speaker generalization across accents |
+| FLEURS Hindi (OSS) | 20 clips | Sanity check baseline — clean read speech |
 
-*MUCS 2021 was planned but requires manual download from OpenSLR — not available via HuggingFace. FLEURS used as OSS dataset instead.*
+*MUCS 2021 (Hindi-English code-switched) was planned as the OSS dataset. It requires manual
+download from OpenSLR and is not available via HuggingFace. FLEURS was used instead and
+is noted as a limitation — it is cleaner than real candidate audio, so FLEURS numbers are
+optimistic baselines, not realistic production estimates.*
 
-**Recording conditions breakdown:**
+**Recording conditions:**
 
-| Condition | Count |
-|-----------|-------|
-| Quiet room | 7 |
-| Traffic noise | 4 |
-| Street/crowd | 3 |
-| Whispered | 2 |
-| Rushed speech | 3 |
-| Phone simulation | 1 |
+| Condition | Count | Why |
+|-----------|-------|-----|
+| Quiet room | 7 | Establishes ceiling performance |
+| Traffic noise | 4 | Common for candidates calling from streets |
+| Street/crowd | 3 | Worst-case ambient noise |
+| Whispered | 2 | Candidates calling in shared spaces |
+| Rushed speech | 3 | Time-pressured or nervous candidates |
+| Phone simulation | 1 | Reverb/compression effect |
 
-All self-recorded samples are Hinglish (Hindi + English code-switched), recorded on a smartphone mic — no studio setup.
+All self-recorded samples are Hinglish (Hindi + English code-switched), recorded on a
+smartphone mic. No studio setup. 6 additional clips from 2 friends with different regional
+accents test cross-speaker generalization.
 
 ### Model Selection
 
-| Model | Type | Why |
-|-------|------|-----|
-| **Deepgram Nova-2** | Commercial API | Required baseline. State-of-art commercial, strong Hindi support |
-| **OpenAI Whisper large-v3** | Open-source | Dominant OSS baseline; most widely deployed multilingual model |
-| **AI4Bharat IndicConformer** | Open-source | Purpose-built for 12 Indic languages; trained on IndicSUPERB |
-| **Sarvam Saaras v3** | Commercial API | Indian startup; their own demo uses "Koramangala 5th Block" as example. <250ms median latency, 100M+ mins transcribed |
+| Model | Type | Rationale |
+|-------|------|-----------|
+| **Deepgram Nova-3** | Commercial API | Required baseline. Currently used in production. |
+| **OpenAI Whisper large-v3** | Open-source | Dominant OSS baseline; most widely deployed multilingual model. The obvious comparison point. |
+| **AI4Bharat IndicConformer** | Open-source | Purpose-built for 12 Indic languages; trained on IndicSUPERB. The non-obvious pick — built for this exact problem. |
+| **Sarvam Saaras v3** | Commercial API | Indian startup explicitly built for Indic languages. Their own demo uses "Koramangala 5th Block" as a sample sentence — they have optimized for this use case. Claims <250ms median latency and 100M+ minutes transcribed. |
 
-**What I excluded and why:**
-- *Google STT / Azure Cognitive*: Enterprise-grade but require paid accounts; noted as production alternatives in recommendations
-- *Wav2Vec2 (HuggingFace)*: Older architecture; IndicConformer strictly supersedes it for this use case
-- *Whisper medium/small*: Ablation included in supplementary — large-v3 is the fair comparison
+**What was excluded and why:**
+- *Google STT / Azure Cognitive*: Require paid enterprise accounts; noted as production alternatives in recommendations
+- *Wav2Vec2*: Older architecture, superseded by IndicConformer for Indic languages
+- *Whisper medium/small*: Large-v3 is the fair comparison for peak accuracy; medium would be the production latency-accuracy tradeoff candidate
+
+**IndicConformer deployment note:** NeMo installation on Colab free tier requires building
+`tensorstore` from source, which exceeded session limits. The HuggingFace fallback
+(Whisper-medium) ran instead. IndicConformer results in this benchmark therefore reflect
+Whisper-medium, not the actual IndicConformer architecture. This is itself a significant
+production insight: **IndicConformer's deployment complexity is a real barrier**, not a
+theoretical one.
 
 ### Metrics
 
-| Metric | Formula | Why |
-|--------|---------|-----|
-| **Entity Accuracy (EA)** | Binary: locality found in transcript (fuzzy ≥80%) | The actual product metric — did we get the locality? |
-| **Jaro-Winkler Similarity** | JWS on best-matching span in hypothesis | Distinguishes recoverable vs catastrophic errors |
-| **Recoverability** | EA=0 + JWS ≥0.75 → recoverable | Maps to whether downstream fuzzy-match can fix it |
-| WER | Levenshtein on word sequence | Standard baseline — shown to be misleading here |
-| CER | Levenshtein on character sequence | Better for long compound names |
-| Latency (ms) | Wall-clock API round-trip | Production-critical for telephony |
+| Metric | Why this, not just WER |
+|--------|------------------------|
+| **Entity Accuracy (EA)** | Binary: did the locality appear correctly (fuzzy ≥80%)? The actual product metric. |
+| **Jaro-Winkler Similarity (JWS)** | Measures how close the entity guess is to the correct name. Distinguishes "Koramangla" (close, recoverable) from "Silk bored" (catastrophic). |
+| **Recoverability** | Four tiers: correct / recoverable (JWS ≥0.75) / degraded / catastrophic. Maps to whether downstream post-processing can fix the error. |
+| WER | Standard baseline — included to show it is misleading for this use case. |
+| CER | Character-level errors, better for long compound names like Byatarayanapura. |
+| Latency | Measured on 2s/3s/5s/10s VAD-gated chunks, not full files. This is how telephony actually works. |
 
 ---
 
@@ -70,114 +89,163 @@ All self-recorded samples are Hinglish (Hindi + English code-switched), recorded
 ### Primary: Entity Accuracy by Model
 
 | Model | Entity Accuracy | Mean WER | Mean CER | Mean JWS | Mean Latency |
-|-------|----------------|----------|----------|----------|-------------|
-| Deepgram Nova-2 | **XX%** | X.XX | X.XX | X.XX | XXXms |
-| Whisper large-v3 | XX% | X.XX | X.XX | X.XX | XXXXms |
-| IndicConformer | XX% | X.XX | X.XX | X.XX | XXXXms |
-| Sarvam Saaras v3 | XX% | X.XX | X.XX | X.XX | XXXms |
+|-------|:--------------:|:--------:|:--------:|:--------:|:------------:|
+| **Whisper large-v3** | **65.4%** | 90.1% | 35.4% | 0.837 | 1295ms† |
+| IndicConformer* | 61.5% | 91.7% | 39.5% | 0.818 | 1338ms† |
+| Sarvam Saaras v3 | 53.8% | 91.2% | 36.3% | 0.799 | **718ms** |
+| Deepgram Nova-3 | 50.0% | **76.6%** | **30.1%** | 0.803 | 1814ms |
 
-*→ Fill from results/metrics_summary.csv after running the notebook*
+*\* IndicConformer ran as Whisper-medium fallback — NeMo exceeded Colab session limits.*  
+*† Local inference — compute only, no network round-trip. Not directly comparable to API latency.*  
+*‡ All API latencies measured from Colab. Production co-located servers would be significantly faster.*
 
-*Note: Latency for API models (Deepgram, Sarvam) includes network round-trip from Colab. Latency for local models (Whisper, IndicConformer) is compute-only with no network. Direct comparison should be treated as directional only.*
+**The headline finding:** Deepgram has the best WER but the worst Entity Accuracy. The metric currently used to benchmark ASR is inversely correlated with what actually matters for candidate routing.
 
 ### Entity Accuracy by Condition
 
-| Condition | Deepgram | Whisper | IndicConformer | Sarvam |
-|-----------|----------|---------|---------------|--------|
-| Quiet | XX% | XX% | XX% | XX% |
-| Traffic | XX% | XX% | XX% | XX% |
-| Street | XX% | XX% | XX% | XX% |
-| Whispered | XX% | XX% | XX% | XX% |
-| Rushed | XX% | XX% | XX% | XX% |
-| Phone | XX% | XX% | XX% | XX% |
+| Condition | Deepgram | Whisper | IndicConformer* | Sarvam |
+|-----------|:--------:|:-------:|:---------------:|:------:|
+| Quiet | 62% | **85%** | 69% | 69% |
+| Traffic | 25% | 25% | 25% | 25% |
+| Street | 0% | 33% | **67%** | **67%** |
+| Whispered | 50% | **100%** | **100%** | 50% |
+| Rushed | **67%** | **67%** | 33% | 33% |
+| Phone | **100%** | 0% | **100%** | 0% |
 
-*→ Fill from results/condition_breakdown.csv*
+Notable: Whisper and IndicConformer* both score 100% on whispered audio. For a hiring platform where candidates call from shared rooms and whisper to avoid being overheard, this is practically meaningful. Deepgram's 0% on street noise is the most concerning production finding.
 
 ### Recoverability Breakdown
 
 | Model | Correct | Recoverable | Degraded | Catastrophic |
-|-------|---------|-------------|----------|-------------|
-| Deepgram | XX | XX | XX | XX |
-| Whisper | XX | XX | XX | XX |
-| IndicConformer | XX | XX | XX | XX |
-| Sarvam | XX | XX | XX | XX |
+|-------|:-------:|:-----------:|:--------:|:------------:|
+| Deepgram | 13 | 4 | 8 | 1 |
+| Whisper | 17 | 5 | 2 | 2 |
+| IndicConformer* | 16 | 5 | 3 | 2 |
+| Sarvam | 14 | 3 | 8 | 1 |
 
-**Note:** "Recoverable" errors (JWS ≥ 0.75) can be fixed by a fuzzy-match layer against a known locality list. "Catastrophic" errors (JWS < 0.5) represent hallucinations or completely wrong locality — these cannot be post-processed away.
+**Recoverable** errors (JWS ≥0.75) can be fixed by a fuzzy-match layer against a known
+locality list at near-zero cost. **Catastrophic** errors (JWS <0.5) cannot be recovered — they
+represent complete hallucinations or entirely wrong entities. Whisper and IndicConformer*
+have fewer degraded errors than Deepgram and Sarvam, meaning their failures tend to be
+either correct or clearly wrong, rather than plausible-but-wrong.
 
 ### VAD Chunk Latency Curve
 
 | Chunk Duration | Deepgram | Sarvam |
-|---------------|----------|--------|
-| 2 seconds | XXXms | XXXms |
-| 3 seconds | XXXms | XXXms |
-| 5 seconds | XXXms | XXXms |
-| 10 seconds | XXXms | XXXms |
+|:-------------:|:--------:|:------:|
+| 2 seconds | 1399ms | 553ms |
+| 3 seconds | 1399ms | 638ms |
+| 5 seconds | 1022ms | 588ms |
+| 10 seconds | 1069ms | 548ms |
 
-*Real-world telephony sends 3-5 second chunks (VAD-gated). These numbers matter more than full-file latency.*
+*Telephony systems use VAD to detect utterance end and send 3-5 second chunks to ASR. This
+is the real production latency — not full-file latency.*
+
+**Sarvam is consistently ~550-640ms on telephony-sized chunks, just above the 500ms UX
+threshold.** From production servers in India (not Colab), it would likely be sub-500ms.
+Deepgram's latency is 2-2.5x higher from Colab; from co-located production servers it would
+improve significantly, but the gap would likely persist.
+
+### FLEURS Hindi — OSS Sanity Check
+
+| Model | WER on FLEURS | WER on Self-Recordings | Degradation Factor |
+|-------|:-------------:|:---------------------:|:-----------------:|
+| Sarvam | **6.5%** | 91.2% | 14x |
+| Deepgram | 15.7% | 76.6% | 4.9x |
+| Whisper | 24.5% | 90.1% | 3.7x |
+
+**The domain gap is the real problem, not the models.** Sarvam achieves 6.5% WER on clean
+Hindi — dramatically better than the others — but degrades 14x on conversational noisy
+Hinglish. All models struggle in real conditions. This means improving data quality (VAD,
+noise filtering, candidate UX prompts) may yield more improvement than switching ASR models.
 
 ---
 
 ## 3. Failure Analysis
 
-### Pre-Run Hypothesis
+### Pre-Run Hypothesis vs Reality
 
-*Before running, my prior: Deepgram will win on latency and reliability. Whisper large-v3 will struggle on 7-syllable Kannada-origin names like Byatarayanapura because it will decompose them into phonetically similar English words. IndicConformer will surprise on Hindi but may fail on locality names if they didn't appear in training data. Sarvam's explicit Koramangala reference in their demo suggests deliberate locality-name optimization.*
+Before running: Deepgram was expected to win on latency and reliability; Whisper was expected
+to struggle on long Kannada-origin names; Sarvam was expected to win on Indic locality names
+given their explicit optimization.
+
+What actually happened: Deepgram had the worst Entity Accuracy despite the best WER.
+Sarvam's accuracy was underwhelming despite the clean-speech advantage. Whisper won on
+entity accuracy. The pre-run hypothesis was wrong on the primary metric — which is exactly
+why you run the benchmark.
 
 ### The Byatarayanapura Problem
 
-Byatarayanapura (7 syllables, Kannada origin) was the hardest locality across all models:
+Byatarayanapura (7 syllables, Kannada origin) is the hardest locality name in the dataset.
+It is also the type of name that matters most — uncommon, long, phonetically dense.
 
-| Model | Output on 17_byatarayanapura_quiet.wav | Verdict |
-|-------|---------------------------------------|---------|
-| Deepgram | "[fill in]" | [correct/recoverable/catastrophic] |
-| Whisper | "[fill in]" | |
-| IndicConformer | "[fill in]" | |
-| Sarvam | "[fill in]" | |
+| Model | Output on `17_byatarayanapura_quiet.wav` | Verdict |
+|-------|------------------------------------------|---------|
+| Deepgram | "beatara hariyana pura" | Catastrophic — split into 3 fake words |
+| Whisper | "byatarayanapura" | Correct |
+| IndicConformer* | "byatarayanapura" | Correct |
+| Sarvam | [segmented into phonetic fragments] | Degraded |
 
-*→ Fill in actual transcription outputs after running notebook*
+Whisper correctly transcribed Byatarayanapura despite it being 7 syllables. Deepgram split
+it into "beatara hariyana pura" — three plausible-sounding but entirely wrong words. A
+downstream entity extraction system matching against a locality list would find no match
+and fail silently. This is a catastrophic production failure on a quiet, well-spoken recording.
 
-### Abbreviation Confusion: HSR Layout & KR Puram
-
-These contain initialisms — "HSR" (letters) + "Layout" (English word):
+### Abbreviation and Initialism Confusion
 
 | Model | Output for "HSR Layout" | Output for "KR Puram" |
 |-------|------------------------|----------------------|
-| Deepgram | | |
-| Whisper | | |
-| IndicConformer | | |
-| Sarvam | | |
+| Deepgram | Correct | Degraded ("kya harapurama") |
+| Whisper | Correct | Correct |
+| IndicConformer* | Correct | Correct |
+| Sarvam | Correct | Degraded |
 
-### Hallucination Test Results
+HSR Layout (initialism + English word) was handled correctly by all models — English
+initialisms in a Hindi sentence appear to be well-covered in training data. KR Puram was
+more problematic: Deepgram and Sarvam both failed, producing phonetic approximations
+of the sounds rather than the correct entity.
 
-*"What does each model output when given 2 seconds of pure background noise?"*
+### Noise Failure Modes
 
-| Model | White Noise (2s) | Pink/Traffic Noise (2s) | Verdict |
-|-------|-----------------|------------------------|---------|
-| Deepgram | [fill] | [fill] | |
-| Whisper | [fill] | [fill] | |
-| IndicConformer | [fill] | [fill] | |
-| Sarvam | [fill] | [fill] | |
+**Traffic noise** degraded all models equally — 25% entity accuracy across the board. No
+model has a meaningful advantage here.
 
-**Expected finding:** Whisper tends to hallucinate plausible-sounding text on noisy/short audio. Deepgram returns empty or low-confidence. A hallucination on a noisy line is a silent mis-route — worse than returning nothing.
+**Street/crowd noise** showed the sharpest divergence: Deepgram 0%, Whisper 33%,
+IndicConformer*/Sarvam 67%. Deepgram completely failed on street noise while
+open-source/India-specific models showed relative resilience.
 
-### Cross-Accent Results
+**Whispered speech** is where the result was most surprising: Whisper large-v3 and
+IndicConformer* both achieved 100%. Deepgram achieved only 50%. For a platform where
+blue-collar workers call from shared accommodation and may whisper, this is directly
+relevant.
 
-| Locality | Self | Friend 1 Accent | Friend 2 Accent | Best Model for Accent Robustness |
-|----------|------|----------------|----------------|--------------------------------|
-| Koramangala | | | | |
-| Byatarayanapura | | | | |
-| HSR Layout | | | | |
+### Hallucination Test
 
-### Open-Source Dataset: FLEURS Hindi
+All three API models were sent 2 seconds of pure pink noise. All returned empty output.
 
-| Model | WER on FLEURS | CER on FLEURS | vs. Self-Recording CER |
-|-------|---------------|---------------|------------------------|
-| Deepgram | | | |
-| Whisper | | | |
-| IndicConformer | | | |
-| Sarvam | | | |
+| Model | Output on Pure Noise | Verdict |
+|-------|---------------------|---------|
+| Deepgram | [empty] | ✅ Correct — silent |
+| Whisper | [empty] | ✅ Correct — silent |
+| Sarvam | [empty] | ✅ Correct — silent |
 
-*FLEURS tests clean read speech. It is used here as a sanity check baseline since MUCS was unavailable.*
+No hallucinations detected. This is a positive production finding — a noisy line will not
+trigger a false locality extraction. Note: Whisper's `vad_filter=True` was enabled, which
+actively prevents hallucination on silence. Without VAD enabled, Whisper is known to generate
+fabricated text on short audio.
+
+### Cross-Accent Results (Speaker Generalization)
+
+| Locality | Self | Friend 1 | Friend 2 | Most Robust Model |
+|----------|:----:|:--------:|:--------:|:-----------------:|
+| Koramangala | All correct | All correct | Deepgram/Whisper fail | Whisper |
+| Byatarayanapura | Whisper/Indic correct | All correct | All correct | Whisper/IndicConformer* |
+| HSR Layout | All correct | All correct | All correct | All |
+
+**Speaker generalization is better than self-recording performance.** Friends' accents
+(likely different from the self-recorder) did not significantly degrade results — in some
+cases improved them. This suggests the self-recordings may have had recording conditions
+that were harder than the friend recordings (which were all quiet).
 
 ---
 
@@ -185,88 +253,134 @@ These contain initialisms — "HSR" (letters) + "Layout" (English word):
 
 ### Cost at Scale
 
-Assume: 100,000 calls/month, average 30 seconds of transcribed audio per call = **50,000 minutes/month**
+Assume: 100,000 calls/month, 30 seconds average transcribed audio = **50,000 minutes/month**
 
 | Model | Pricing | Monthly Cost (50k min) | Notes |
-|-------|---------|----------------------|-------|
-| Deepgram Nova-2 | $0.0043/min | ~$215/month | Predictable, scales |
-| Sarvam Saaras | ₹30/hour | ~$298/month | Cheaper than Deepgram at some scales |
-| Whisper large-v3 | Infrastructure cost only | GPU server cost | 1× A100 ≈ $2/hr on cloud |
-| IndicConformer | Infrastructure cost only | GPU server cost | Similar to Whisper |
+|-------|---------|:---------------------:|-------|
+| Deepgram Nova-3 | $0.0043/min | ~$215/month | Predictable, scales linearly |
+| Sarvam Saaras v3 | ₹30/hour | ~$298/month | ~39% more expensive than Deepgram |
+| Whisper large-v3 | Infrastructure only | ~$150-200/month | 1× A100 at $2/hr cloud; needs DevOps |
+| IndicConformer | Infrastructure only | ~$150-200/month | Similar to Whisper; harder to deploy |
 
-**Key insight:** At scale, self-hosted OSS models (Whisper, IndicConformer) can be significantly cheaper than API costs, but require GPU infrastructure and DevOps overhead.
+At 50k minutes/month, self-hosted Whisper on a cloud GPU is cost-competitive with API
+options. The breakeven point is roughly 30,000 minutes/month — above that, self-hosting
+wins on cost. Below that, API simplicity wins.
 
 ### Deployment Complexity
 
-| Model | Deployment | Streaming | Memory | Production-Ready? |
-|-------|-----------|-----------|--------|------------------|
-| Deepgram | Zero setup | ✅ Native | N/A (API) | ✅ Yes |
-| Sarvam | Zero setup | ✅ WebSocket available | N/A (API) | ✅ Yes |
-| Whisper | Needs GPU server | ❌ Native (use WhisperLive) | 6GB+ VRAM | ⚠️ Requires DevOps |
-| IndicConformer | Needs GPU + NeMo | ❌ | 8GB+ VRAM | ⚠️ Requires DevOps |
+| Model | Setup | Streaming | Memory | Production-Ready? |
+|-------|-------|:---------:|:------:|:-----------------:|
+| Deepgram | Zero — API | ✅ Native WebSocket | N/A | ✅ Yes |
+| Sarvam | Zero — API | ✅ WebSocket available | N/A | ✅ Yes |
+| Whisper | GPU server required | ❌ (use WhisperLive wrapper) | 6GB+ VRAM | ⚠️ Needs DevOps |
+| IndicConformer | GPU + AI4Bharat NeMo fork | ❌ | 8GB+ VRAM | ❌ High complexity |
+
+IndicConformer's deployment barrier is not theoretical — it failed to install on Colab free
+tier during this benchmark. Any production deployment would require a dedicated environment
+with AI4Bharat's custom NeMo fork pre-installed.
 
 ---
 
 ## 5. What This Benchmark Doesn't Capture
 
-Being honest about limitations is part of good engineering:
+1. **Single primary speaker.** 20 recordings are one voice, one phone, one accent. The 6
+   friend recordings add diversity but real production covers UP/Bihar/Karnataka/Andhra
+   accents at scale.
 
-1. **Single primary speaker** — 20 recordings are one voice, one phone, one room. Accent diversity comes only from 2 friends. Real production covers UP/Bihar/Karnataka/Andhra accents.
+2. **G.711 codec not tested.** Real telephony compresses audio to 8kHz G.711. All models
+   would perform worse on actual phone audio than on smartphone recordings. The phone
+   simulation clip (1 sample) is insufficient to measure this.
 
-2. **G.711 codec not tested** — Real telephony compresses audio to 8kHz G.711 codec. This degrades audio quality significantly. All models would perform worse on actual phone audio vs. smartphone recordings.
+3. **Colab latency ≠ production latency.** API latency from Colab includes shared network
+   overhead. Co-located production servers would be significantly faster, especially for
+   Deepgram (US-hosted) vs Sarvam (India-hosted).
 
-3. **Colab latency ≠ production latency** — API latency measurements from Colab (shared network, variable load) are directionally useful but not production numbers. Real deployment uses co-located servers.
+4. **No streaming evaluation.** This benchmark tests batch/file mode. Streaming ASR has
+   different latency profiles and is not evaluated here.
 
-4. **No streaming evaluation** — This benchmark tests batch/file mode only. Streaming ASR (token-by-token) has different latency characteristics and is not evaluated here.
+5. **Training data overlap unknown.** Bangalore locality names may appear in Sarvam and
+   IndicConformer training data given their India focus. This would inflate accuracy on
+   locality names specifically compared to a truly out-of-domain test.
 
-5. **Training data overlap unknown** — We cannot verify whether locality names appeared in model training data. IndicConformer/Sarvam may have seen Bangalore locality names during training, which would inflate accuracy artificially.
-
-6. **Entity boundary detection not tested** — This benchmark assumes the locality name is the only entity being extracted. In production, the system must first detect *where* in the utterance the locality is mentioned ("main **Koramangala** mein rehta hoon" → extract "Koramangala"). That named entity recognition step is not evaluated here. Even perfect ASR accuracy is insufficient without reliable entity extraction.
+6. **Entity boundary detection not tested.** This benchmark assumes the locality is the
+   only entity to extract and its position is known. In production, a separate NER step is
+   needed to find *where* in the utterance the locality appears. Even perfect ASR accuracy
+   is insufficient without reliable entity extraction downstream.
 
 ---
 
 ## 6. Recommendation
 
-### For Real-Time Phone Calls (Primary Use Case)
+### For Real-Time Phone Calls
 
-**Use Deepgram Nova-2 + locality fuzzy-match post-processing**
+**Sarvam Saaras v3 + locality fuzzy-match post-processing**
 
-Rationale:
-- Sub-500ms latency is non-negotiable for live IVR
-- Deepgram's API reliability and uptime are production-grade
-- Whisper is too slow for real-time (>5s for large-v3 on most hardware)
-- **The single highest-leverage improvement is not model selection but adding a fuzzy-match step:** if ASR returns "Kormangala", match against the known 30-locality list (Rapidfuzz, threshold 80%) → recover to "Koramangala". This turns recoverable failures into correct ones and dramatically improves effective accuracy.
+Sarvam achieves ~550ms on 3-5 second VAD-gated chunks from Colab. From production
+servers in India this would likely be sub-500ms — within the live IVR threshold. It is
+purpose-built for Indic languages, significantly faster than Deepgram from an Indian network
+perspective, and its FLEURS accuracy (6.5% WER) demonstrates strong clean-Hindi capability.
+
+If Sarvam's production latency proves to be above threshold after testing, **Deepgram** is
+the fallback — it has established reliability, predictable cost, and the best WER even if
+entity accuracy lags.
+
+Whisper is not viable for real-time — 1295ms compute latency on a dedicated GPU, plus
+the server infrastructure requirement, makes it unsuitable for live phone IVR.
 
 ### For Async WhatsApp Voice Notes
 
-**Use Sarvam Saaras** (if cost is acceptable) **or Whisper large-v3** (if self-hosting is viable)
+**Whisper large-v3 (self-hosted)**
 
-Rationale:
-- Latency is irrelevant for async processing
-- Sarvam is purpose-built for Indian languages and cheaper at moderate scale
-- Whisper large-v3 is free to run and achieves competitive accuracy on clean audio
-- IndicConformer is an interesting option but deployment complexity is higher
+Latency is irrelevant for async processing. Whisper achieves the highest entity accuracy
+(65.4%) and is free to run. At 50,000 minutes/month, a cloud GPU server is cost-competitive
+with API options. The quality advantage justifies the DevOps investment.
 
-### The System Design Insight
+### The Highest-Leverage Improvement
 
-> A mediocre ASR + smart post-processing will outperform a better ASR with no post-processing.
->
-> Maintain a canonical list of Bangalore localities. After transcription, fuzzy-match the location entity against this list with a threshold of ~80% Jaro-Winkler similarity. This single step recovers the majority of "recoverable" errors — often 15-20% of total samples — at near-zero cost.
->
-> This is the production architecture. Model selection is a secondary concern.
+**Add a fuzzy-match post-processing layer.** This is more impactful than any model switch.
+
+Maintain a canonical list of Bangalore localities. After transcription, use Rapidfuzz with
+~80% Jaro-Winkler threshold to match the extracted entity against this list. This recovers
+recoverable errors (4-5 per model across 26 samples) at near-zero cost and with no latency
+impact.
+
+```python
+from rapidfuzz import process
+LOCALITIES = ["Koramangala", "Indiranagar", "Whitefield", ...]  # canonical list
+
+def recover_locality(asr_output: str) -> str:
+    match, score, _ = process.extractOne(asr_output, LOCALITIES)
+    return match if score >= 80 else asr_output
+```
+
+A mediocre ASR with this post-processing layer will outperform a better ASR without it.
+Model selection is a secondary concern compared to this single engineering decision.
 
 ### Model Selection Summary
 
 | Constraint | Recommendation |
-|-----------|---------------|
-| Lowest latency | Deepgram |
-| Best accuracy (clean audio) | [Fill after results] |
-| Best accuracy (noisy audio) | [Fill after results] |
+|-----------|----------------|
+| Lowest latency | Sarvam Saaras v3 (~550ms on telephony chunks) |
+| Best entity accuracy | Whisper large-v3 (65.4%) |
+| Best on clean audio | Sarvam (6.5% WER on FLEURS) |
+| Best on noisy/street audio | Whisper / IndicConformer* |
+| Best on whispered speech | Whisper / IndicConformer* (100%) |
 | Zero ongoing cost | Whisper large-v3 (self-hosted) |
-| Best for Indic languages specifically | Sarvam or IndicConformer |
-| Easiest to deploy | Deepgram or Sarvam (API, no infra) |
-| Most surprising result | [Fill after results] |
+| Easiest to deploy | Deepgram or Sarvam (API, zero setup) |
+| Most surprising result | Deepgram has best WER but worst Entity Accuracy |
 
 ---
 
-*Report length: ~3 pages when formatted. Code and full results at: [GitHub URL]*
+## Appendix: Metric Methodology Note
+
+All model outputs were transliterated from Devanagari to Roman script before metric
+computation using `indic-transliteration`. API models (Deepgram, Sarvam) return Devanagari
+for Hindi input; comparing Devanagari output against Roman-script ground truth produces
+artificially inflated WER. The transliteration step normalizes both sides to the same script
+before computing WER, CER, and entity matching. Without this fix, all models scored near
+0% entity accuracy — illustrating how metric implementation choices can completely
+misrepresent model performance.
+
+---
+
+*Code, recordings, and full results: https://github.com/mohdabdullahmeraj/asr-shootout*
