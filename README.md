@@ -55,8 +55,7 @@ asr-shootout/
 │   ├── condition_heatmap.png
 │   └── chunk_latency_curve.png
 ├── report/
-│   └── report_template.md         # Fill with your numbers after running notebook
-├── RECORDING_GUIDE.md             # How to record the 20 + 6 audio samples
+│   └── report.md                  # Fill with your numbers after running notebook
 ├── requirements.txt
 └── .env.example                   # Copy to .env and add your API keys
 ```
@@ -70,7 +69,7 @@ asr-shootout/
 
 **Cross-accent (6 clips):** Same 3 localities recorded by 2 friends with different accents — tests speaker generalization.
 
-**Open-source:** FLEURS-Hi (30 clips) as sanity-check baseline. MUCS 2021 was planned but is omitted as it requires manual download.
+**Open-source:** FLEURS-Hi (30 clips) as sanity-check baseline.
 
 ---
 
